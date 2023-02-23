@@ -34,10 +34,12 @@ const commands = [
     {
         name: "vosh",
         description: "Go on George, hit the Griddy!",
-
+    },
+    {
         name: "voshmoji",
         description: "Omegalul",
-
+    },
+    {
         name: "voshSong",
         description: "Kinda slaps tbh",
     },
