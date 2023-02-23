@@ -42,7 +42,7 @@ const rest = new REST({
 
 client.on("ready", () => {
   console.log(`${client.user.tag} active`);
-  //client.user.setActivity("Bath, UK and no beans");
+  client.user.setActivity("Bath, UK and no beans");
 });
 
 client.on("interactionCreate", async (interaction) => {

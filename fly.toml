@@ -1,4 +1,4 @@
-# fly.toml file generated for voshai on 2023-02-23T11:20:44+02:00
+# fly.toml file generated for voshai on 2023-02-23T23:01:02+02:00
 
 app = "voshai"
 kill_signal = "SIGINT"
@@ -6,6 +6,7 @@ kill_timeout = 5
 processes = []
 
 [env]
+  PORT = "8080"
 
 [experimental]
   auto_rollback = true

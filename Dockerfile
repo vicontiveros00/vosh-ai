@@ -1,10 +1,12 @@
 FROM debian:bullseye as builder
 
+ARG NODE_VERSION=18.12.1
+
 RUN apt-get update; apt install -y curl python-is-python3 pkg-config build-essential
 RUN curl https://get.volta.sh | bash
 ENV VOLTA_HOME /root/.volta
 ENV PATH /root/.volta/bin:$PATH
-RUN volta install node
+RUN volta install node@${NODE_VERSION}
 
 #run server in node environment
 
