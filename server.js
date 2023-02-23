@@ -40,7 +40,7 @@ const commands = [
         description: "Omegalul",
     },
     {
-        name: "voshSong",
+        name: "voshsong",
         description: "Kinda slaps tbh",
     },
 ];
