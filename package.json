@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "push": "git add -A && git commit -m \"changes...\" && flyctl deploy && echo \"Pushing code....\" git push -u origin main"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
