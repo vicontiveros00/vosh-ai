@@ -18,12 +18,12 @@ const openai = new OpenAIApi(configuration);
 const port = process.env.PORT || "8080";
 //here so fly doesnt yell at me
 
-const voshResponses = ['Go on George, hit the Griddy!', 'This is true. I am black. Black as the ace of Spades', 'Beans do *not* belong on toast.', "There's money in mental illness! That's why psychiatrists exist!", 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', 'nOmegaLul mmmmmmmmmkay', 'The only funny place name I can think of is Bath.... I just imagine it full of water. https://visitbath.co.uk/', 'sweetarse', 'Wutface?', 'https://youtu.be/hvL1339luv0', 'https://youtu.be/EVYO0Ax2lz0', 'I was at the premiere of Stereo Love', 'How many Vosh you got? A lot. -21 Savage', "I'm so Vresh", 'Soy un AI tan inteligente, que he aprendido castellano a la vez mantengo la habilidad de dar autismo.', 'DUDE I LOST!!', 'DO you ever sit in a permanent blanky mode ? ', ' ^ ', 'Haha yeah man'];
+const aiVoshResponses = ['Go on George, hit the Griddy! This is true. I am black. Black as the ace of Spades Beans do *not* belong on toast Theres money in mental illness! Thats why psychiatrists exist! nOmegaLul mmmmmmmmmkay The only funny place name I can think of is Bath.... I just imagine it full of water. Wutface? I was at the premiere of Stereo Love How many Vosh you got? A lot. -21 Savage Im so Vresh DUDE I LOST!! DO you ever sit in a permanent blanky mode ? Haha yeah man'];
  
-const aiPrompt = 'These quotes are from a man named Josh Smith. He is quite blunt in the way he speaks, and is very dismissive of new ideas, or things he does not understand. He does a lot of illogical and questionable things, such as not understanding left-overs should be kept in a fridge, or pouring a cup of coffee without boiling the kettle first, and thinking that the milk being added would cause the drink to be cold, rather than it just being that the water was never hot in the first place. Generate a quote from him based on this information and from the following quotes: ';
+const aiPrompt = 'These quotes are from a man named Josh Smith, also known as Vosh Dith. He is quite blunt in the way he speaks, and is very dismissive of new ideas, or things he does not understand. He does a lot of illogical and questionable things, such as not understanding left-overs should be kept in a fridge, or pouring a cup of coffee without boiling the kettle first, and thinking that the milk being added would cause the drink to be cold, rather than it just being that the water was never hot in the first place. Generate a quote from him based on this information and the following quotes: ';
 
 const generateVoshResponse = (username) => {
-   /*  const voshResponses = ['Go on George, hit the Griddy!', 'This is true. I am black. Black as the ace of Spades', 'Beans do *not* belong on toast.', "There's money in mental illness! That's why psychiatrists exist!", 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', 'nOmegaLul mmmmmmmmmkay', 'The only funny place name I can think of is Bath.... I just imagine it full of water. https://visitbath.co.uk/', 'sweetarse', 'Wutface?', 'https://youtu.be/hvL1339luv0', 'https://youtu.be/EVYO0Ax2lz0', 'I was at the premiere of Stereo Love', 'How many Vosh you got? A lot. -21 Savage', "I'm so Vresh", 'Soy un AI tan inteligente, que he aprendido castellano a la vez mantengo la habilidad de dar autismo.', 'DUDE I LOST!!', 'DO you ever sit in a permanent blanky mode ? ', ' ^ ', 'Haha yeah man']; */
+    const voshResponses = ['Go on George, hit the Griddy!', 'This is true. I am black. Black as the ace of Spades', 'Beans do *not* belong on toast.', "There's money in mental illness! That's why psychiatrists exist!", 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', 'nOmegaLul mmmmmmmmmkay', 'The only funny place name I can think of is Bath.... I just imagine it full of water. https://visitbath.co.uk/', 'sweetarse', 'Wutface?', 'https://youtu.be/hvL1339luv0', 'https://youtu.be/EVYO0Ax2lz0', 'I was at the premiere of Stereo Love', 'How many Vosh you got? A lot. -21 Savage', "I'm so Vresh", 'Soy un AI tan inteligente, que he aprendido castellano a la vez mantengo la habilidad de dar autismo.', 'DUDE I LOST!!', 'DO you ever sit in a permanent blanky mode ? ', ' ^ ', 'Haha yeah man'];
   return `${voshResponses[Math.floor(Math.random() * voshResponses.length)]} ${username}`
 }
 
@@ -41,9 +41,10 @@ const generateVoshSong = (username) => {
 
 async function callApi() {
     const completion = await openai.createCompletion({
-		model: "davinci",
-		prompt: `${aiPrompt} ${voshResponses}`,
-		temperature: 1,
+		model: "text-davinci-003",
+		prompt: `${aiPrompt} ${aiVoshResponses}`,
+		max_tokens: 190,
+		temperature: 0.66,
   });
   //console.log(completion);
   return `${completion.data.choices[0].text}`;
@@ -101,9 +102,10 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply(generateVoshSong(interaction.user));
   }
   if (interaction.commandName === "voshgpt") {
-	  //await interaction.deferReply();
+	 await interaction.deferReply();
 	  //await wait (4000);
-	  await interaction.reply(await callApi());
+	  await interaction.editReply(await callApi());
+	  
   }
 });
 
