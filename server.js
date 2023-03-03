@@ -39,7 +39,7 @@ const generateVoshSong = (username) => {
 const callApi = async() => {
     try {
       const completion = await openai.createCompletion({
-        model: "text-curie-001",
+        model: "text-davinci-003",
         prompt: `${aiPrompt} ${aiVoshResponses}`,
         max_tokens: 190,
         temperature: 0.66,
