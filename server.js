@@ -16,9 +16,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const port = process.env.PORT || "8080";
-//here so fly doesnt yell at me
-
 const generateVoshResponse = (username) => {
     const voshResponses = ['Go on George, hit the Griddy!', 'This is true. I am black. Black as the ace of Spades', 'Beans do *not* belong on toast.', "There's money in mental illness! That's why psychiatrists exist!", 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', 'nOmegaLul mmmmmmmmmkay', 'The only funny place name I can think of is Bath.... I just imagine it full of water. https://visitbath.co.uk/', 'sweetarse', 'Wutface?', 'https://youtu.be/hvL1339luv0', 'https://youtu.be/EVYO0Ax2lz0', 'I was at the premiere of Stereo Love', 'How many Vosh you got? A lot. -21 Savage', "I'm so Vresh", 'Soy un AI tan inteligente, que he aprendido castellano a la vez mantengo la habilidad de dar autismo.', 'DUDE I LOST!!', 'DO you ever sit in a permanent blanky mode ? ', ' ^ ', 'Haha yeah man'];
   return `${voshResponses[Math.floor(Math.random() * voshResponses.length)]} ${username}`
@@ -66,8 +63,12 @@ const commands = [
     },
 	  {
 		    name: "voshgpt",
-		    description: "If this works I'll be amazed",
-	  }
+		    description: "AI Generated Vosh Response",
+	  },
+    {
+        name: 'ping',
+        description: "Test is Vosh AI is able to receive commands"
+    }
 ];
 
 const rest = new REST({ 
@@ -105,7 +106,9 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.commandName === "voshgpt") {
 	  await interaction.deferReply();
 	  await interaction.editReply(await callApi());
-	  
+  }
+  if (interaction.commandName === "ping") {
+    await interaction.reply('pong');
   }
 });
 
