@@ -39,7 +39,7 @@ const generateVoshSong = (username) => {
 const callApi = async() => {
     try {
       const completion = await openai.createCompletion({
-        model: "Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+        model: "text-curie-001",
         prompt: `${aiPrompt} ${aiVoshResponses}`,
         max_tokens: 190,
         temperature: 0.66,
@@ -47,7 +47,7 @@ const callApi = async() => {
       //george use the debugger stop logging to console 💀
       return `${completion.data.choices[0].text}`;
     } catch (error) {
-      return 'Beautiful...'
+      return 'Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
     }
 }
 
