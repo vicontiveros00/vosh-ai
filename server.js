@@ -2,6 +2,7 @@ import { REST, Routes, Client, GatewayIntentBits } from "discord.js";
 import { config } from 'dotenv';
 config();
 import { Configuration, OpenAIApi } from "openai";
+import express from 'express';
 import { aiVoshResponses, aiPrompt } from "./textPrompts.js";
 
 const client = new Client({ 
@@ -10,6 +11,18 @@ const client = new Client({
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const TOKEN = process.env.TOKEN;
+const port = process.env.PORT;
+
+const app = express();
+app.get('/', (req, res) => {
+  return res.sendFile('index.html', {
+    root: '.'
+  })
+})
+
+app.listen(port, "0.0.0.0", (req, res) => {
+  console.log(`listening on port ${port}....`)
+})
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
