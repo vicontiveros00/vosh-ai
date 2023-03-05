@@ -5,9 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Vosh AI!</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .blink {
+            animation: blinking 1s linear infinite;
+        }
+
+        @keyframes blinking {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        img {
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-    <h1>The Vosh Way &trade;</h1>
+    <h1 class="blink">The Vosh Way &trade;</h1>
     <img src="https://i.ibb.co/KWG6zCz/vosh.png" />
+    <br />
+    <small>project by george and cheebo</small>
 </body>
 </html>
