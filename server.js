@@ -137,6 +137,9 @@ client.on("interactionCreate", async (interaction) => {
     case 'ping':
       await interaction.reply('pong');
       break;
+    case 'credits':
+      await interaction.reply('Programmers:\nGeorge\nCheebo\n\nAI Propmpt Writer:\nGeorge\n\nAI Model:\nVosh\n\nAPI:\nhttps://openai.com/blog/openai-api');
+      break;
   }
 });
 
