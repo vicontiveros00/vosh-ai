@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 config();
 import { Configuration, OpenAIApi } from "openai";
 import express from 'express';
-import { aiVoshResponses, aiPrompt } from "./textPrompts.js";
+import { aiVoshResponses, aiPrompt, staticVoshResponses, voshEmojis, voshSongLinks } from "./textPrompts.js";
 
 //setup discord client
 const client = new Client({ 
@@ -34,64 +34,73 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+//helper function to return random index from array
+const getRandomIndexFromArr = (arr, username) => {
+  if (arr.length > 1) {
+    return `${arr[Math.floor(Math.random() * arr.length)]} ${username}`
+  }
+}
+
 //get static vosh response
 const generateVoshResponse = (username) => {
-    const voshResponses = ['Go on George, hit the Griddy!', 'This is true. I am black. Black as the ace of Spades', 'Beans do *not* belong on toast.', "There's money in mental illness! That's why psychiatrists exist!", 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO', 'nOmegaLul mmmmmmmmmkay', 'The only funny place name I can think of is Bath.... I just imagine it full of water. https://visitbath.co.uk/', 'sweetarse', 'Wutface?', 'https://youtu.be/hvL1339luv0', 'https://youtu.be/EVYO0Ax2lz0', 'I was at the premiere of Stereo Love', 'How many Vosh you got? A lot. -21 Savage', "I'm so Vresh", 'Soy un AI tan inteligente, que he aprendido castellano a la vez mantengo la habilidad de dar autismo.', 'DUDE I LOST!!', 'DO you ever sit in a permanent blanky mode ? ', ' ^ ', 'Haha yeah man'];
-  return `${voshResponses[Math.floor(Math.random() * voshResponses.length)]} ${username}`
+  const voshResponses = staticVoshResponses;  
+  return getRandomIndexFromArr(voshResponses, username);
 }
 
 //get vosh emojis (server specific) GEORGE FINISH THIS
 const generateVoshEmoji = (username) => {
-    const voshEmojis = ['<:omegalul:732266781380444191>', '<:Pog:562729730982412343>', 'etc etc I will finsih then when it know it actually works'];
-    return `${voshEmojis[Math.floor(Math.random() * voshEmojis.length)]} ${username}`
+  const emojiList = voshEmojis
+  return getRandomIndexFromArr(emojiList, username);
 }
 
 //get a vosh song
 const generateVoshSong = (username) => {
-    const voshSongLinks = ['https://open.spotify.com/track/4ly6SAui02c2LUV0yftP3U?si=47f637ccd03f43d3',
-        'https://open.spotify.com/track/2O1qYJTA2BI5ypFFqEZhh4?si=6f53ff0d27534207',
-        'https://open.spotify.com/track/33fJZ55wZdbiba2ynJNoZr?si=a373b60bc6fe4dc0'];
-    return `${voshSongLinks[Math.floor(Math.random() * voshSongLinks.length)]} ${username}`
+  const voshSongs = voshSongLinks;
+  return getRandomIndexFromArr(voshSongs, username);
 }
 
 //call openai with prompt to generate vosh response
 const callApi = async() => {
-    try {
-      const completion = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `${aiPrompt} ${aiVoshResponses}`,
-        max_tokens: 190,
-        temperature: 0.66,
-      });
-      //george use the debugger stop logging to console 💀
-      return `${completion.data.choices[0].text}`;
-    } catch (error) {
-      return 'Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
-    }
+  try {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `${aiPrompt} ${aiVoshResponses}`,
+      max_tokens: 190,
+      temperature: 0.66,
+    });
+    //george use the debugger stop logging to console 💀
+    return `${completion.data.choices[0].text}`;
+  } catch (error) {
+    return 'Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
+  }
 }
 
 //list of commands
 const commands = [
-    {
-        name: "vosh",
-        description: "Go on George, hit the Griddy!",
-    },
-    {
-        name: "voshmoji",
-        description: "Omegalul",
-    },
-    {
-        name: "voshsong",
-        description: "Kinda slaps tbh",
-    },
-	  {
-		    name: "voshgpt",
-		    description: "AI Generated Vosh Response",
-	  },
-    {
-        name: 'ping',
-        description: "Test is Vosh AI is able to receive commands"
-    }
+  {
+    name: "vosh",
+    description: "Static Vosh Response",
+  },
+  {
+    name: "voshmoji",
+    description: "Omegalul",
+  },
+  {
+    name: "voshsong",
+    description: "Kinda slaps tbh",
+  },
+	{
+		name: "voshgpt",
+		description: "AI Generated Vosh Response (This costs George money)",
+	},
+  {
+    name: 'ping',
+    description: "Test is Vosh AI is able to receive commands"
+  },
+  {
+    name: 'credits',
+    description: 'Vosh Bot credits'
+  }
 ];
 
 //idk what this does but discord js docs says you need it
@@ -138,7 +147,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply('pong');
       break;
     case 'credits':
-      await interaction.reply('Programmers:\nGeorge\nCheebo\n\nAI Propmpt Writer:\nGeorge\n\nAI Model:\nVosh\n\nAPI:\nhttps://openai.com/blog/openai-api');
+      await interaction.reply('Programmers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai');
       break;
   }
 });
