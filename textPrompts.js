@@ -6,4 +6,7 @@ export const voshEmojis = ['<:omegalul:732266781380444191>', '<:Pog:562729730982
 
 export const voshSongLinks = ['https://open.spotify.com/track/4ly6SAui02c2LUV0yftP3U?si=47f637ccd03f43d3', 'https://open.spotify.com/track/2O1qYJTA2BI5ypFFqEZhh4?si=6f53ff0d27534207', 'https://open.spotify.com/track/33fJZ55wZdbiba2ynJNoZr?si=a373b60bc6fe4dc0'];
 
-export const aiPrompt = 'These quotes are from a man named Josh Smith, also known as Vosh Dith. He is quite blunt in the way he speaks, and is very dismissive of new ideas, or things he does not understand. He does a lot of illogical and questionable things, such as not understanding left-overs should be kept in a fridge, or pouring a cup of coffee without boiling the kettle first, and thinking that the milk being added would cause the drink to be cold, rather than it just being that the water was never hot in the first place. Generate a quote from him in first person based on this information and the following quotes: ';
+export const aiPrompt = 'These quotes are from a man named Josh Smith, also known as Vosh Dith. He is quite blunt in the way he speaks, and is very dismissive of new ideas, or things he does not understand. He does a lot of illogical and questionable things, such as not understanding left-overs should be kept in a fridge, or pouring a cup of coffee without boiling the kettle first, and thinking that the milk being added would cause the drink to be cold, rather than it just being that the water was never hot in the first place. Generate a short, random sentence from Josh based on this information and the following quotes: ';
+
+/* export const aiPrompt = 'Generate a short, random quote based on these quotes: '
+ */
