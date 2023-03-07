@@ -74,10 +74,12 @@ const openai = new OpenAIApi(configuration);
 const callApi = async() => {
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",
+		//Fine-tuned model lessgoooooo boiiisssssss (I think this actually costs me even more money
+		//it had better be fucking worth it
+      model: "davinci:ft-personal-2023-03-06-21-07-44",
       prompt: `${aiPrompt} ${aiVoshResponses}`,
-      max_tokens: 190,
-      temperature: 0.66,
+      max_tokens: 120,
+      temperature: 0.7,
     });
     //george use the debugger stop logging to console 💀
     return `${completion.data.choices[0].text}`;
