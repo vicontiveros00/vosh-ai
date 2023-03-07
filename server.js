@@ -64,44 +64,36 @@ const generateVoshSong = (username) => {
 
 //call openai with prompt to generate vosh response
 const callApi = async(userQuery) => {
-	//Dynamically typed makes me dynamically confused also I'm still using notepad++ lmao
-	var thisPrompt;
-	thisPrompt = `${aiPrompt} ${aiVoshResponses}`
-	if(userQuery)
-	{
-		thisPrompt = userQuery;
-	}
-  
   try {
     const completion = await openai.createCompletion({
 		//Fine-tuned model lessgoooooo boiiisssssss (I think this actually costs me even more money
 		//it had better be fucking worth it
       model: "davinci:ft-personal-2023-03-06-21-07-44",
-      prompt: thisPrompt,
+      prompt: userQuery || `${aiPrompt} ${aiVoshResponses}`,
       max_tokens: 120,
       temperature: 0.7,
       //aquí un comentario en castellano para molestar a george, ¡dále george, pega el griddy!
 	  //J'ai utilisé Google Translate pour écrire ceci pour rendre Cheebo fou
+    
+    //la diferencia es que yo no uso el google translate :v los frances robaron el croissant de nosotros era invento español
     });
     //george use the debugger stop logging to console 💀
-	if(userQuery)
-	{
+	  if (userQuery) {
 		//This should be in a file but I cba also we should like make it an embed so it looks cool maybe it could
 		//even send a random Vosh image or maybe we could actually use the AI to generate an image of what it thinks
 		//Vosh would look like if he was saying the response and then send that woahhhhhhh 
-		return 'Question: ' + userQuery + '\nVosh response:\n' + completion.data.choices[0].text;
-	}
+      return `Quesiton: ${userQuery}\nVosh response:\n${completion.data.choices[0].text}`
+	  }
 	
-	return completion.data.choices[0].text;
+	  return completion.data.choices[0].text;
     
-  } catch (error) {
-    console.error(error);
-	if(userQuery)
-	{
+    } catch (error) {
+      console.error(error);
+	    if (userQuery) {
 		//If the user asks a question and it fails it just @s the real Vosh lmao
-		return userQuery + '@261087265466351616'
-	}
-    return 'Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
+		    userQuery + '@261087265466351616'
+	    }
+      return 'Uuuuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
   }
 }
 
@@ -126,9 +118,10 @@ const commands = [
 	{
 		name: "voshquestion",
 		description: "Ask Vosh a question directly (This also costs George money)",
-		options:
-		[
+		options: [
 			{//I watched a video and saw you can do it like this but they should all be in a seperate file and then we use a command handler to load them in also this line is getting pretty damn long huh oh it wraps around that's cool.
+
+        //bro fuck the video i cant stand writing commonjs without my arse bleeding
 				name: 'question-for-vosh',
 				description: 'The question you wish to ask Mr Dith',
 				required: true,
@@ -168,14 +161,14 @@ client.on("ready", () => {
   client.user.setActivity("Bath, UK and no beans");
 });
 
-const voshInteraction = {
+/*const voshInteraction = {
 	data: new SlashCommandBuilder()
 		.setName('vdiab')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
 		await interaction.reply('Pong!');
 	},
-};
+}; ???? */
 
 //command hanlder
 client.on("interactionCreate", async (interaction) => {
@@ -198,11 +191,10 @@ client.on("interactionCreate", async (interaction) => {
     case 'ping':
       await interaction.reply('pong');
       break;
-	case 'voshquestion':
-	  const userQuery = interaction.options.getString('question-for-vosh');
-	  await interaction.deferReply();
-		await interaction.editReply(await callApi(userQuery));
-	  break;
+	  case 'voshquestion':
+	    await interaction.deferReply();
+		  await interaction.editReply(await callApi(interaction.options.getString('question-for-vosh')));
+	    break;
     case 'credits':
       await interaction.reply(`aha\nProgrammers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai\n\n**Version: ${Package.version}**\n\n© George and Cheebo`);
       break;
