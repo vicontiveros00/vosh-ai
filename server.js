@@ -74,7 +74,7 @@ const callApi = async(userQuery) => {
       temperature: 0.7,
       //aquí un comentario en castellano para molestar a george, ¡dále george, pega el griddy!
 	  //J'ai utilisé Google Translate pour écrire ceci pour rendre Cheebo fou
-    
+
     //la diferencia es que yo no uso el google translate :v los frances robaron el croissant de nosotros era invento español
     });
     //george use the debugger stop logging to console 💀
@@ -82,7 +82,7 @@ const callApi = async(userQuery) => {
 		//This should be in a file but I cba also we should like make it an embed so it looks cool maybe it could
 		//even send a random Vosh image or maybe we could actually use the AI to generate an image of what it thinks
 		//Vosh would look like if he was saying the response and then send that woahhhhhhh 
-      return `Quesiton: ${userQuery}\nVosh response:\n${completion.data.choices[0].text}`
+      return `Question: ${userQuery}\nVosh response:\n${completion.data.choices[0].text}`
 	  }
 	
 	  return completion.data.choices[0].text;
