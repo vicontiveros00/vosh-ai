@@ -72,6 +72,7 @@ const callApi = async() => {
       prompt: `${aiPrompt} ${aiVoshResponses}`,
       max_tokens: 120,
       temperature: 0.7,
+      //aquí un comentario en castellano para molestar a george, ¡dále george, pega el griddy!
     });
     //george use the debugger stop logging to console 💀
     return completion.data.choices[0].text;
