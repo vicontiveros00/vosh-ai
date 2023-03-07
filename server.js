@@ -152,7 +152,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply('pong');
       break;
     case 'credits':
-      await interaction.reply(`Programmers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai\nVersion: ${Package.version}`);
+      await interaction.reply(`aha\nProgrammers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai\n\n**Version: ${Package.version}**\n\n©George and Cheebo`);
       break;
   }
 });
