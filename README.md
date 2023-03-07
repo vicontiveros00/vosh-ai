@@ -87,4 +87,6 @@ const callApi = async() => {
 }
 ```
 
+**Note!** When changes are made and pushed to the main branch of this repository, please increment `version` in [`package.json`](/package.json).
+
 &copy; George and Cheebo (Vic)

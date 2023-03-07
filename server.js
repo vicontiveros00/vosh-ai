@@ -4,6 +4,9 @@ config();
 import { Configuration, OpenAIApi } from "openai";
 import express from 'express';
 import { aiVoshResponses, aiPrompt, staticVoshResponses, voshEmojis, voshSongLinks } from "./textPrompts.js";
+import Package from './package.json' assert {
+  type: 'json'
+}
 
 //setup discord client
 const client = new Client({ 
@@ -149,7 +152,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply('pong');
       break;
     case 'credits':
-      await interaction.reply('Programmers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai');
+      await interaction.reply(`Programmers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai\nVersion: ${Package.version}`);
       break;
   }
 });
