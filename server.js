@@ -7,6 +7,7 @@ import { aiVoshResponses, aiPrompt, staticVoshResponses, voshEmojis, voshSongLin
 import Package from './package.json' assert {
   type: 'json'
 }
+import deepai from 'deepai'
 
 //setup discord client
 const client = new Client({ 
@@ -17,6 +18,8 @@ const client = new Client({
 const CLIENT_ID = process.env.CLIENT_ID;
 const TOKEN = process.env.TOKEN;
 const port = process.env.PORT;
+const DEEPAI_API_KEY = process.env.DEEPAI_API_KEY
+deepai.setApiKey(DEEPAI_API_KEY);
 
 //setup web server
 const app = express();
@@ -97,6 +100,18 @@ const callApi = async(userQuery) => {
   }
 }
 
+const generateImage = async (prompt) => {
+  try {
+    const res = await deepai.callStandardApi('text2img', {
+      text: prompt,
+    })
+    return res.output_url
+  } catch (err) {
+    console.error(err)
+    return `shi myself: ${err}`
+  }
+}
+
 //list of commands
 const commands = [
   {
@@ -136,6 +151,18 @@ const commands = [
   {
     name: 'credits',
     description: 'Vosh Bot credits'
+  },
+  {
+    name: 'voshart',
+    description: 'vosh is a painter',
+    options: [
+			{
+				name: 'pic-idea-for-vosh',
+				description: 'Monsieur Dith will now paint this',
+				required: true,
+				type: 3
+			}
+		]
   }
 ];
 
@@ -197,6 +224,10 @@ client.on("interactionCreate", async (interaction) => {
 	    break;
     case 'credits':
       await interaction.reply(`aha\nProgrammers:\nGeorge\nCheebo\n\nAI Prompt Writer:\nGeorge\n\nAI Modeled after:\nVosh Dith\n\nAPI:\nhttps://openai.com/blog/openai-api\n\nOffical Vosh AI site:\nhttps://voshai.fly.dev/\n\nGithub Repository:\nhttps://github.com/vicontiveros00/vosh-ai\n\n**Version: ${Package.version}**\n\n© George and Cheebo`);
+      break;
+    case 'voshart':
+      await interaction.deferReply();
+		  await interaction.editReply(await generateImage(interaction.options.getString('pic-idea-for-vosh')));
       break;
   }
 });
