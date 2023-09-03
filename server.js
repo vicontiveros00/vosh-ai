@@ -105,7 +105,7 @@ const generateImage = async (prompt) => {
     const res = await deepai.callStandardApi('text2img', {
       text: prompt,
     })
-    return res.output_url
+    return `Prompt: ${prompt}\n${res.output_url}`
   } catch (err) {
     console.error(err)
     return `shi myself: ${err}`
